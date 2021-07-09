@@ -32,6 +32,7 @@ struct PersistenceController {
 
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Project_12_Core_Data_SwiftUI")
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }

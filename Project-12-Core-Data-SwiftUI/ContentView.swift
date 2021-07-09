@@ -8,47 +8,163 @@
 import SwiftUI
 import CoreData
 
-//Ensuring Core Data objects are unique using constraints
+//Dynamically filtering @FetchRequest with SwiftUI
+
+//Filtering @FetchRequest using NSPredicate
 
 struct ContentView: View {
     
     @Environment(\.managedObjectContext) var moc
-    
-    @FetchRequest(entity: Wizard.entity(), sortDescriptors: []) var wizards: FetchedResults<Wizard>
+    @State private var lastNameFilter = "A"
     
     var body: some View {
         
         VStack {
             
-            List(wizards, id: \.self) { wizard in
-                Text(wizard.name ?? "No name")
+            // list of matching singers
+            FilteredListView(filter: lastNameFilter)
+            
+            
+            Button {
+                let taylor = Singer(context: self.moc)
+                taylor.firstName = "Taylor"
+                taylor.lastName = "Swift"
+                
+                let ed = Singer(context: self.moc)
+                ed.firstName = "Ed"
+                ed.lastName = "Sheeran"
+                
+                let adele = Singer(context: self.moc)
+                adele.firstName = "Adele"
+                adele.lastName = "Adkins"
+                
+                try? moc.save()
+                
+            } label: {
+                Text("Add Example")
             }
             
             Button {
-                let wizard = Wizard(context: moc)
-                wizard.name = "Büyücü baro"
+                lastNameFilter = "A"
             } label: {
-                Text("Add")
+                Text("Show A")
             }
             
             Button {
-                do {
-                    try moc.save()
-                } catch  {
-                    print(error.localizedDescription)
-                }
+                lastNameFilter = "S"
             } label: {
-                Text("Save")
+                Text("Show S")
             }
-            
-            
             
             
         }
         
+        
+        
+        
     }
     
 }
+
+////Filtering @FetchRequest using NSPredicate
+//
+//struct ContentView: View {
+//
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(entity: Ship.entity(), sortDescriptors: [], predicate: NSPredicate(format: "universe in %@", ["Aliens", "Firefly", "Star Trek"])) var ships: FetchedResults<Ship>
+//
+//    //NSPredicate(format: "universe == %@", "Star Wars")
+//    //NSPredicate(format: "universe == %@", "Star Wars")
+//    //NSPredicate(format: "name < %@", "F")
+//    //NSPredicate(format: "universe in %@", ["Aliens", "Firefly", "Star Trek"])
+//    //NSPredicate(format: "name BEGINSWITH %@", "E"))
+//    //NSPredicate(format: "name BEGINSWITH[c] %@", "e"))
+//    //NSPredicate(format: "NOT name CONTAINS[c] %@", "e"))
+//
+//
+//    var body: some View {
+//
+//        VStack {
+//
+//            List(ships, id: \.self) { ship in
+//                Text(ship.name ?? "Unknown name")
+//            }
+//
+//            Button {
+//                let ship1 = Ship(context: moc)
+//                ship1.name = "Enterprise"
+//                ship1.universe = "Star Trek"
+//                let ship2 = Ship(context: self.moc)
+//                ship2.name = "Defiant"
+//                ship2.universe = "Star Trek"
+//                let ship3 = Ship(context: self.moc)
+//                ship3.name = "Millennium Falcon"
+//                ship3.universe = "Star Wars"
+//                let ship4 = Ship(context: self.moc)
+//                ship4.name = "Executor"
+//                ship4.universe = "Star Wars"
+//
+//                do {
+//                    try moc.save()
+//                } catch {
+//                    print(error.localizedDescription)
+//                }
+//
+//            } label: {
+//                Text("Add examples")
+//            }
+//
+//
+//        }
+//
+//
+//
+//
+//    }
+//
+//}
+
+////Ensuring Core Data objects are unique using constraints
+//
+//struct ContentView: View {
+//
+//    @Environment(\.managedObjectContext) var moc
+//
+//    @FetchRequest(entity: Wizard.entity(), sortDescriptors: []) var wizards: FetchedResults<Wizard>
+//
+//    var body: some View {
+//
+//        VStack {
+//
+//            List(wizards, id: \.self) { wizard in
+//                Text(wizard.name ?? "No name")
+//            }
+//
+//            Button {
+//                let wizard = Wizard(context: moc)
+//                wizard.name = "Büyücü baro"
+//            } label: {
+//                Text("Add")
+//            }
+//
+//            Button {
+//                do {
+//                    try moc.save()
+//                } catch  {
+//                    print(error.localizedDescription)
+//                }
+//            } label: {
+//                Text("Save")
+//            }
+//
+//
+//
+//
+//        }
+//
+//    }
+//
+//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
