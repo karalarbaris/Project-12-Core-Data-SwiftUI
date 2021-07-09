@@ -8,15 +8,46 @@
 import SwiftUI
 import CoreData
 
-//Creating NSManagedObject subclasses
+//Ensuring Core Data objects are unique using constraints
 
 struct ContentView: View {
-
+    
+    @Environment(\.managedObjectContext) var moc
+    
+    @FetchRequest(entity: Wizard.entity(), sortDescriptors: []) var wizards: FetchedResults<Wizard>
+    
     var body: some View {
-        Text("sf")
-       
+        
+        VStack {
+            
+            List(wizards, id: \.self) { wizard in
+                Text(wizard.name ?? "No name")
+            }
+            
+            Button {
+                let wizard = Wizard(context: moc)
+                wizard.name = "Büyücü baro"
+            } label: {
+                Text("Add")
+            }
+            
+            Button {
+                do {
+                    try moc.save()
+                } catch  {
+                    print(error.localizedDescription)
+                }
+            } label: {
+                Text("Save")
+            }
+            
+            
+            
+            
+        }
+        
     }
-
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
