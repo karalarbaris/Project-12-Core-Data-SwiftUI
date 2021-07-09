@@ -13,6 +13,8 @@
 		1570CAA326945C8D005015CF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1570CAA226945C8D005015CF /* Preview Assets.xcassets */; };
 		1570CAA526945C8D005015CF /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1570CAA426945C8D005015CF /* Persistence.swift */; };
 		1570CAA826945C8D005015CF /* Project_12_Core_Data_SwiftUI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1570CAA626945C8D005015CF /* Project_12_Core_Data_SwiftUI.xcdatamodeld */; };
+		1570CAB126986B9B005015CF /* Movie+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1570CAAF26986B9B005015CF /* Movie+CoreDataClass.swift */; };
+		1570CAB226986B9B005015CF /* Movie+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1570CAB026986B9B005015CF /* Movie+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		1570CAA426945C8D005015CF /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		1570CAA726945C8D005015CF /* Project_12_Core_Data_SwiftUI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project_12_Core_Data_SwiftUI.xcdatamodel; sourceTree = "<group>"; };
 		1570CAA926945C8D005015CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1570CAAF26986B9B005015CF /* Movie+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1570CAB026986B9B005015CF /* Movie+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 		1570CA9A26945C8A005015CF /* Project-12-Core-Data-SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				1570CAAF26986B9B005015CF /* Movie+CoreDataClass.swift */,
+				1570CAB026986B9B005015CF /* Movie+CoreDataProperties.swift */,
 				1570CA9B26945C8A005015CF /* Project_12_Core_Data_SwiftUIApp.swift */,
 				1570CA9D26945C8A005015CF /* ContentView.swift */,
 				1570CA9F26945C8D005015CF /* Assets.xcassets */,
@@ -147,6 +153,8 @@
 				1570CAA526945C8D005015CF /* Persistence.swift in Sources */,
 				1570CAA826945C8D005015CF /* Project_12_Core_Data_SwiftUI.xcdatamodeld in Sources */,
 				1570CA9E26945C8A005015CF /* ContentView.swift in Sources */,
+				1570CAB126986B9B005015CF /* Movie+CoreDataClass.swift in Sources */,
+				1570CAB226986B9B005015CF /* Movie+CoreDataProperties.swift in Sources */,
 				1570CA9C26945C8A005015CF /* Project_12_Core_Data_SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
