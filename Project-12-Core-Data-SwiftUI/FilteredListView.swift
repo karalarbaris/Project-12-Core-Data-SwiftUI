@@ -27,7 +27,13 @@ struct FilteredListView: View {
     }
     
     init(filter: String, predicate: String) {
-        fetchRequest = FetchRequest<Singer>(entity: Singer.entity(), sortDescriptors: [ NSSortDescriptor(keyPath: \Singer.firstName, ascending: false)  ], predicate: NSPredicate(format: "\(predicate) BEGINSWITH %@", filter))
+        fetchRequest = FetchRequest<Singer>(entity: Singer.entity(), sortDescriptors: [ NSSortDescriptor(keyPath: \Singer.firstName, ascending: false)  ], predicate: NSPredicate(format: "\(predicate) \(PredicateType.beginsWith.rawValue) %@", filter))
     }
+    
+    enum PredicateType: String {
+        case beginsWith = "BEGINSWITH"
+       
+    }
+
     
 }
