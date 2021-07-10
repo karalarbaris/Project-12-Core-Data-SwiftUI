@@ -69,18 +69,23 @@ import CoreData
     
         @Environment(\.managedObjectContext) var moc
         @State private var lastNameFilter = "A"
-    
+        @State private var predicate = "lastName"
+        
+        let predicates = ["firstName", "lastName"]
+        
         var body: some View {
     
             VStack {
     
+                
                 // list of matching singers
-                FilteredListView(filter: lastNameFilter)
+                
+                FilteredListView(filter: lastNameFilter,predicate: predicate)
     
     
                 Button {
                     let taylor = Singer(context: self.moc)
-                    taylor.firstName = "Taylor"
+                    taylor.firstName = "SSSaylor"
                     taylor.lastName = "Swift"
     
                     let ed = Singer(context: self.moc)
@@ -88,7 +93,7 @@ import CoreData
                     ed.lastName = "Sheeran"
     
                     let adele = Singer(context: self.moc)
-                    adele.firstName = "Adele"
+                    adele.firstName = "SSSAdele"
                     adele.lastName = "Adkins"
                     
                     let taylor2 = Singer(context: self.moc)
@@ -109,6 +114,14 @@ import CoreData
                     Text("Add Example")
                         .padding()
                 }
+                
+                Picker("Select predicate paremeter", selection: $predicate) {
+                    ForEach(predicates, id: \.self) {
+                        Text($0)
+                    }
+                    
+                }.pickerStyle(SegmentedPickerStyle())
+
     
                 Button {
                     lastNameFilter = "A"
@@ -119,6 +132,9 @@ import CoreData
     
                 Button {
                     lastNameFilter = "S"
+//                    predicate = "firstName"
+                    print(predicate)
+
                 } label: {
                     Text("Show S")
                         .padding()
