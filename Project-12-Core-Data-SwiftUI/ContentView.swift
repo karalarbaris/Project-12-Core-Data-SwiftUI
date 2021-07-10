@@ -8,115 +8,131 @@
 import SwiftUI
 import CoreData
 
-//One-to-many relationships with Core Data, SwiftUI, and @FetchRequest
+////One-to-many relationships with Core Data, SwiftUI, and @FetchRequest
+//
+//struct ContentView: View {
+//
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(entity: Country.entity(), sortDescriptors: []) var countries: FetchedResults<Country>
+//
+//    var body: some View {
+//
+//        VStack {
+//
+//            List {
+//                ForEach(countries, id: \.self) { country in
+//                    Section(header: Text(country.wrappedFullName)) {
+//                        ForEach(country.candyArray, id: \.self) { candy in
+//                            Text(candy.wrappedName)
+//                        }
+//                    }
+//                }
+//            }
+//
+//            Button("Add") {
+//                let candy1 = Candy(context: moc)
+//                candy1.name = "candy1 name"
+//                candy1.origin = Country(context: moc)
+//                candy1.origin?.shortName = "UK"
+//                candy1.origin?.fullName = "United Kingdom"
+//
+//                let candy2 = Candy(context: self.moc)
+//                candy2.name = "KitKat"
+//                candy2.origin = Country(context: self.moc)
+//                candy2.origin?.shortName = "UK"
+//                candy2.origin?.fullName = "United Kingdom"
+//                let candy3 = Candy(context: self.moc)
+//                candy3.name = "Twix"
+//                candy3.origin = Country(context: self.moc)
+//                candy3.origin?.shortName = "UK"
+//                candy3.origin?.fullName = "United Kingdom"
+//                let candy4 = Candy(context: self.moc)
+//                candy4.name = "Toblerone"
+//                candy4.origin = Country(context: self.moc)
+//                candy4.origin?.shortName = "CH"
+//                candy4.origin?.fullName = "Switzerland"
+//
+//                try? moc.save()
+//
+//            }
+//
+//        }
+//
+//    }
+//}
 
-struct ContentView: View {
+    //Dynamically filtering @FetchRequest with SwiftUI
     
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Country.entity(), sortDescriptors: []) var countries: FetchedResults<Country>
+    //Filtering @FetchRequest using NSPredicate
     
-    var body: some View {
-        
-        VStack {
-            
-            List {
-                ForEach(countries, id: \.self) { country in
-                    Section(header: Text(country.wrappedFullName)) {
-                        ForEach(country.candyArray, id: \.self) { candy in
-                            Text(candy.wrappedName)
-                        }
-                    }
+    struct ContentView: View {
+    
+        @Environment(\.managedObjectContext) var moc
+        @State private var lastNameFilter = "A"
+    
+        var body: some View {
+    
+            VStack {
+    
+                // list of matching singers
+                FilteredListView(filter: lastNameFilter)
+    
+    
+                Button {
+                    let taylor = Singer(context: self.moc)
+                    taylor.firstName = "Taylor"
+                    taylor.lastName = "Swift"
+    
+                    let ed = Singer(context: self.moc)
+                    ed.firstName = "Ed"
+                    ed.lastName = "Sheeran"
+    
+                    let adele = Singer(context: self.moc)
+                    adele.firstName = "Adele"
+                    adele.lastName = "Adkins"
+                    
+                    let taylor2 = Singer(context: self.moc)
+                    taylor2.firstName = "Taylor2"
+                    taylor2.lastName = "Swift2"
+    
+                    let ed2 = Singer(context: self.moc)
+                    ed2.firstName = "Ed2"
+                    ed2.lastName = "Sheeran2"
+    
+                    let adele2 = Singer(context: self.moc)
+                    adele2.firstName = "Adele2"
+                    adele2.lastName = "Adkins2"
+    
+                    try? moc.save()
+    
+                } label: {
+                    Text("Add Example")
+                        .padding()
                 }
+    
+                Button {
+                    lastNameFilter = "A"
+                } label: {
+                    Text("Show A")
+                        .padding()
+                }
+    
+                Button {
+                    lastNameFilter = "S"
+                } label: {
+                    Text("Show S")
+                        .padding()
+                }
+    
+    
             }
-            
-            Button("Add") {
-                let candy1 = Candy(context: moc)
-                candy1.name = "candy1 name"
-                candy1.origin = Country(context: moc)
-                candy1.origin?.shortName = "UK"
-                candy1.origin?.fullName = "United Kingdom"
-                
-                let candy2 = Candy(context: self.moc)
-                candy2.name = "KitKat"
-                candy2.origin = Country(context: self.moc)
-                candy2.origin?.shortName = "UK"
-                candy2.origin?.fullName = "United Kingdom"
-                let candy3 = Candy(context: self.moc)
-                candy3.name = "Twix"
-                candy3.origin = Country(context: self.moc)
-                candy3.origin?.shortName = "UK"
-                candy3.origin?.fullName = "United Kingdom"
-                let candy4 = Candy(context: self.moc)
-                candy4.name = "Toblerone"
-                candy4.origin = Country(context: self.moc)
-                candy4.origin?.shortName = "CH"
-                candy4.origin?.fullName = "Switzerland"
-                
-                try? moc.save()
-                
-            }
-            
+    
+    
+    
+    
         }
-        
+    
     }
-}
-    ////Dynamically filtering @FetchRequest with SwiftUI
-    //
-    ////Filtering @FetchRequest using NSPredicate
-    //
-    //struct ContentView: View {
-    //
-    //    @Environment(\.managedObjectContext) var moc
-    //    @State private var lastNameFilter = "A"
-    //
-    //    var body: some View {
-    //
-    //        VStack {
-    //
-    //            // list of matching singers
-    //            FilteredListView(filter: lastNameFilter)
-    //
-    //
-    //            Button {
-    //                let taylor = Singer(context: self.moc)
-    //                taylor.firstName = "Taylor"
-    //                taylor.lastName = "Swift"
-    //
-    //                let ed = Singer(context: self.moc)
-    //                ed.firstName = "Ed"
-    //                ed.lastName = "Sheeran"
-    //
-    //                let adele = Singer(context: self.moc)
-    //                adele.firstName = "Adele"
-    //                adele.lastName = "Adkins"
-    //
-    //                try? moc.save()
-    //
-    //            } label: {
-    //                Text("Add Example")
-    //            }
-    //
-    //            Button {
-    //                lastNameFilter = "A"
-    //            } label: {
-    //                Text("Show A")
-    //            }
-    //
-    //            Button {
-    //                lastNameFilter = "S"
-    //            } label: {
-    //                Text("Show S")
-    //            }
-    //
-    //
-    //        }
-    //
-    //
-    //
-    //
-    //    }
-    //
-    //}
     
     ////Filtering @FetchRequest using NSPredicate
     //

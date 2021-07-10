@@ -27,7 +27,7 @@ struct FilteredListView: View {
     }
     
     init(filter: String) {
-        fetchRequest = FetchRequest<Singer>(entity: Singer.entity(), sortDescriptors: [], predicate: NSPredicate(format: "lastName BEGINSWITH %@", filter))
+        fetchRequest = FetchRequest<Singer>(entity: Singer.entity(), sortDescriptors: [ NSSortDescriptor(keyPath: \Singer.firstName, ascending: false)  ], predicate: NSPredicate(format: "lastName BEGINSWITH %@", filter))
     }
     
 }
